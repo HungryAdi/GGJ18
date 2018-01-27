@@ -26,21 +26,23 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     public Collider2D[] overlapArr = new Collider2D[10];
 
-    private Rigidbody2D rb2d;
+    [HideInInspector]
+    public Rigidbody2D rb2d;
+
+    [HideInInspector]
+    public ConnectionManager cMan;
+
     
 
 
     // Use this for initialization
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        cMan = GameObject.FindGameObjectWithTag("cMan").GetComponent<ConnectionManager>();
     }
 
     // Update is called once per frame
     void Update() {
-        if (connectedObjects.Count > 0 && CheckConnectedToNonPlayer())
-            rb2d.mass = .5f;
-        else
-            rb2d.mass = 200f;
         float lx = GamePad.GetState(index).ThumbSticks.Left.X;
         float ly = GamePad.GetState(index).ThumbSticks.Left.Y;
 
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 
             // if found any object
             if (closestOverlap) {
-                //connector.GetComponent<Hinge>().connected = true;
+                cMan.Connect(this, closestOverlap.gameObject);
                 connector.enabled = true;
                 PlayerController pc = null;
                 Rigidbody2D closestRb = null;
@@ -83,17 +85,21 @@ public class PlayerController : MonoBehaviour {
                 {
                     pc = closestOverlap.transform.parent.GetComponent<PlayerController>();
                     pc.connectedObjects.Add(connector.gameObject);
-                    closestRb = closestOverlap.GetComponent<Rigidbody2D>();
+
                 }
-                if (closestRb)
-                    connector.connectedBody = closestRb;
-                else
-                    connector.connectedAnchor = closestOverlap.transform.position;
+                closestRb = closestOverlap.GetComponent<Rigidbody2D>();
+                connector.connectedBody = closestRb;
+
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
             if (connector.connectedBody)
+            {
                 connectedObjects.Remove(connector.connectedBody.gameObject);
+                cMan.Disconnect(this, connector.connectedBody.gameObject);
+            }
+
+
             connector.connectedBody = null;
             connector.enabled = false;
 
