@@ -21,16 +21,26 @@ public class PlayerController : MonoBehaviour {
     public HingeJoint2D rightHinge;
     [HideInInspector]
     public CircleCollider2D rightCol;
-
+    [HideInInspector]
+    public List<GameObject> connectedObjects;
     [HideInInspector]
     public Collider2D[] overlapArr = new Collider2D[10];
 
+    private Rigidbody2D rb2d;
+    
+
+
     // Use this for initialization
     void Start() {
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update() {
+        if (connectedObjects.Count > 0 && CheckConnectedToNonPlayer())
+            rb2d.mass = .5f;
+        else
+            rb2d.mass = 200f;
         float lx = GamePad.GetState(index).ThumbSticks.Left.X;
         float ly = GamePad.GetState(index).ThumbSticks.Left.Y;
 
@@ -42,7 +52,6 @@ public class PlayerController : MonoBehaviour {
 
         CheckWire(GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
         CheckWire(GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
-
     }
 
     void CheckWire(float triggerValue, HingeJoint2D connector, CircleCollider2D col) {
@@ -54,7 +63,7 @@ public class PlayerController : MonoBehaviour {
             Collider2D closestOverlap = null;
             float distance = float.PositiveInfinity;
             for (int i = 0; i < count; i++) {
-                if (overlapArr[i] == col)
+                if (overlapArr[i] == rightCol || overlapArr[i] == leftCol)
                     continue;
                 float sqr = Vector2.SqrMagnitude(overlapArr[i].transform.position - col.transform.position);
                 if (sqr < distance) {
@@ -63,23 +72,42 @@ public class PlayerController : MonoBehaviour {
                 }
             }
 
-            // if found any object then connect to it
+            // if found any object
             if (closestOverlap) {
+                //connector.GetComponent<Hinge>().connected = true;
                 connector.enabled = true;
-                Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
-                if (closestRb) {
-                    connector.connectedBody = closestRb;
-                } else {
-                    connector.connectedAnchor = closestOverlap.transform.position;
+                PlayerController pc = null;
+                Rigidbody2D closestRb = null;
+                connectedObjects.Add(closestOverlap.gameObject);
+                if (closestOverlap.CompareTag("Player"))
+                {
+                    pc = closestOverlap.transform.parent.GetComponent<PlayerController>();
+                    pc.connectedObjects.Add(connector.gameObject);
+                    closestRb = closestOverlap.GetComponent<Rigidbody2D>();
                 }
+                if (closestRb)
+                    connector.connectedBody = closestRb;
+                else
+                    connector.connectedAnchor = closestOverlap.transform.position;
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
+            if (connector.connectedBody)
+                connectedObjects.Remove(connector.connectedBody.gameObject);
             connector.connectedBody = null;
             connector.enabled = false;
+
         }
     }
 
-
+    bool CheckConnectedToNonPlayer()
+    {
+        foreach(GameObject g in connectedObjects)
+        {
+            if (!g.CompareTag("Player"))
+                return true;
+        }
+        return false;
+    }
 
 }

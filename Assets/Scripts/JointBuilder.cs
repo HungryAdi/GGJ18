@@ -48,6 +48,8 @@ public class JointBuilder : MonoBehaviour {
                 coll.isTrigger = true;
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
+                go.tag = "Player";
+                //go.AddComponent<Hinge>();
                 hj.enabled = false;
                 hingy = hj;
                 colly = coll;
@@ -59,13 +61,14 @@ public class JointBuilder : MonoBehaviour {
         return null;
     }
     void RenderLine(int count) {
-        lr.positionCount = count * 2;
-        for(int i = lrbs.Length - 1; i >= 0; --i) {
+        lr.positionCount = count * 2 - 1;
+        for (int i = lrbs.Length - 1; i > 0; --i) {
             lr.SetPosition(lrbs.Length - i - 1, lrbs[i].transform.position);
         }
-        for(int j = lrbs.Length; j < lrbs.Length + rrbs.Length; ++j) {
-            lr.SetPosition(j, rrbs[j - lrbs.Length].transform.position);
+        for (int j = 0; j < rrbs.Length; ++j) {
+            lr.SetPosition(j + lrbs.Length - 1, rrbs[j].transform.position);
         }
+
     }
     // Update is called once per frame
     void Update() {

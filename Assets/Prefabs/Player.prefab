@@ -99,6 +99,7 @@ MonoBehaviour:
   rightRigid: {fileID: 0}
   rightHinge: {fileID: 0}
   rightCol: {fileID: 0}
+  connectedObjects: []
   overlapArr:
   - {fileID: 0}
   - {fileID: 0}
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1100158023576808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba0e197b67089b048b27f94f28a034e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 19b2e320f2be3dc42bf742130608e3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jointPrefab: {fileID: 1789574740074360, guid: 327956fe0c5194b4180d0757c952f718,
