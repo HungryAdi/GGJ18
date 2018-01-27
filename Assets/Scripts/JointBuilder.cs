@@ -19,17 +19,10 @@ public class JointBuilder : MonoBehaviour {
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
-<<<<<<< HEAD
         lr = GetComponent<LineRenderer>();
         count = 10;
-        pc.leftWire = BuildJoints(count, out pc.leftConnect, out pc.leftWireEnd, out lrbs);
-        pc.rightWire = BuildJoints(count, out pc.rightConnect, out pc.rightWireEnd, out rrbs);
-=======
-
-        int c = 10;
-        pc.leftRigid = BuildJoints(c, out pc.leftHinge, out pc.leftCol);
-        pc.rightRigid = BuildJoints(c, out pc.rightHinge, out pc.rightCol);
->>>>>>> origin/master
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs);
 
 
     }
