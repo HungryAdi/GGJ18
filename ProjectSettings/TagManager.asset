@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Connect
+  - User
+  - Source
   layers:
   - Default
   - TransparentFX

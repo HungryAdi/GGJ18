@@ -21,26 +21,27 @@ public class PlayerController : MonoBehaviour {
     public HingeJoint2D rightHinge;
     [HideInInspector]
     public CircleCollider2D rightCol;
-    [HideInInspector]
-    public List<GameObject> connectedObjects;
+
     [HideInInspector]
     public Collider2D[] overlapArr = new Collider2D[10];
 
     private Rigidbody2D rb2d;
-    
+
+    Wire wire;
 
 
     // Use this for initialization
     void Start() {
+        wire = GetComponent<Wire>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update() {
-        if (connectedObjects.Count > 0 && CheckConnectedToNonPlayer())
+        if (wire.connectedToWall)
             rb2d.mass = .5f;
         else
-            rb2d.mass = 200f;
+            rb2d.mass = 100f;
         float lx = GamePad.GetState(index).ThumbSticks.Left.X;
         float ly = GamePad.GetState(index).ThumbSticks.Left.Y;
 
@@ -50,11 +51,11 @@ public class PlayerController : MonoBehaviour {
         leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
         rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
-        CheckWire(GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
-        CheckWire(GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
+        CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
+        CheckWire(true, GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
     }
 
-    void CheckWire(float triggerValue, HingeJoint2D connector, CircleCollider2D col) {
+    void CheckWire(bool rightArm, float triggerValue, HingeJoint2D connector, CircleCollider2D col) {
         if (triggerValue > .5f && !connector.enabled) { // if trigger down
             // find all nearby things on connect layer
             int count = Physics2D.OverlapCircleNonAlloc(col.transform.position, col.radius * col.transform.localScale.x, overlapArr, 1 << 8);
@@ -74,17 +75,12 @@ public class PlayerController : MonoBehaviour {
 
             // if found any object
             if (closestOverlap) {
-                //connector.GetComponent<Hinge>().connected = true;
                 connector.enabled = true;
-                PlayerController pc = null;
-                Rigidbody2D closestRb = null;
-                connectedObjects.Add(closestOverlap.gameObject);
-                if (closestOverlap.CompareTag("Player"))
-                {
-                    pc = closestOverlap.transform.parent.GetComponent<PlayerController>();
-                    pc.connectedObjects.Add(connector.gameObject);
-                    closestRb = closestOverlap.GetComponent<Rigidbody2D>();
-                }
+
+                Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
+
+                wire.Connect(rightArm, closestOverlap);
+
                 if (closestRb)
                     connector.connectedBody = closestRb;
                 else
@@ -92,22 +88,12 @@ public class PlayerController : MonoBehaviour {
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
-            if (connector.connectedBody)
-                connectedObjects.Remove(connector.connectedBody.gameObject);
+
             connector.connectedBody = null;
             connector.enabled = false;
 
+            wire.Disconnect(rightArm);
         }
-    }
-
-    bool CheckConnectedToNonPlayer()
-    {
-        foreach(GameObject g in connectedObjects)
-        {
-            if (!g.CompareTag("Player"))
-                return true;
-        }
-        return false;
     }
 
 }

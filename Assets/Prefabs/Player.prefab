@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50594762837329474}
   - component: {fileID: 58144213883043096}
   - component: {fileID: 120208322999576844}
+  - component: {fileID: 114033300504057436}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -59,7 +60,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -80,6 +81,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114033300504057436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100158023576808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164d1fae89f0bb24d956569ab35882be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftType: 4
+  rightType: 4
+  leftWire: {fileID: 0}
+  rightWire: {fileID: 0}
+  connectedToWall: 0
+  powered: 0
 --- !u!114 &114225222308138736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +117,6 @@ MonoBehaviour:
   rightRigid: {fileID: 0}
   rightHinge: {fileID: 0}
   rightCol: {fileID: 0}
-  connectedObjects: []
   overlapArr:
   - {fileID: 0}
   - {fileID: 0}
@@ -206,7 +223,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 4
+    numCornerVertices: 0
     numCapVertices: 4
     alignment: 0
     textureMode: 0
