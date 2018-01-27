@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d70b7e91d084d304e949f8c4dbd0ac1a
+timeCreated: 1517032288
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: electrical
+  fontNames:
+  - electrical
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
