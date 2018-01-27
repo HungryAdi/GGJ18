@@ -5,6 +5,7 @@ using UnityEngine;
 public class JointBuilder : MonoBehaviour {
 
     public GameObject jointPrefab;
+    public float angle = 60.0f;
 
     Rigidbody2D rigid;
     PlayerController pc;
@@ -33,7 +34,7 @@ public class JointBuilder : MonoBehaviour {
             if (i == 0) {
                 joint.connectedBody = rigid;
             } else {
-                joint.limits = new JointAngleLimits2D { min = -90, max = 90 };
+                joint.limits = new JointAngleLimits2D { min = -angle, max = angle };
                 joint.connectedBody = rbs[i - 1];
             }
 
