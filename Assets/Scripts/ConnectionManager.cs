@@ -23,6 +23,7 @@ public class ConnectionManager : MonoBehaviour {
         PlayerController[] pController = FindObjectsOfType<PlayerController>();
         for(int i = 0; i < pController.Length; i++)
         {
+            Debug.Log(i);
             pControllers[i] = new PConnections(pController[i], new List<GameObject>());
         }
 	}
