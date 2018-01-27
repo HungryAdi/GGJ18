@@ -63,14 +63,15 @@ public class PlayerController : MonoBehaviour {
                 }
             }
 
-            // if found any object
+            // if found any object then connect to it
             if (closestOverlap) {
                 connector.enabled = true;
                 Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
-                if (closestRb)
+                if (closestRb) {
                     connector.connectedBody = closestRb;
-                else
+                } else {
                     connector.connectedAnchor = closestOverlap.transform.position;
+                }
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down

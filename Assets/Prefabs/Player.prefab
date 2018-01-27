@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58144213883043096
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -92,12 +92,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  leftWire: {fileID: 0}
-  leftConnect: {fileID: 0}
-  rightWire: {fileID: 0}
-  rightConnect: {fileID: 0}
-  leftWireEnd: {fileID: 0}
-  rightWireEnd: {fileID: 0}
+  armSpeed: 5
+  leftRigid: {fileID: 0}
+  leftHinge: {fileID: 0}
+  leftCol: {fileID: 0}
+  rightRigid: {fileID: 0}
+  rightHinge: {fileID: 0}
+  rightCol: {fileID: 0}
   overlapArr:
   - {fileID: 0}
   - {fileID: 0}
@@ -109,7 +110,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  armSpeed: 5
 --- !u!114 &114773467934970550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointPrefab: {fileID: 1789574740074360, guid: 327956fe0c5194b4180d0757c952f718,
     type: 2}
+  angle: 60
 --- !u!120 &120208322999576844
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -204,8 +205,8 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 4
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     generateLightingData: 0
