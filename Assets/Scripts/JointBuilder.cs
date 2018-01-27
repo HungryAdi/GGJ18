@@ -44,6 +44,8 @@ public class JointBuilder : MonoBehaviour {
                 coll.isTrigger = true;
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
+                go.tag = "Player";
+                //go.AddComponent<Hinge>();
                 hj.enabled = false;
                 hingy = hj;
                 colly = coll;
