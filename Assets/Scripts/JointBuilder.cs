@@ -7,6 +7,7 @@ using UnityEngine;
 public class JointBuilder : MonoBehaviour {
 
     public GameObject jointPrefab;
+    public float angle = 60.0f;
 
     Rigidbody2D rigid;
     PlayerController pc;
@@ -18,10 +19,17 @@ public class JointBuilder : MonoBehaviour {
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
+<<<<<<< HEAD
         lr = GetComponent<LineRenderer>();
         count = 10;
         pc.leftWire = BuildJoints(count, out pc.leftConnect, out pc.leftWireEnd, out lrbs);
         pc.rightWire = BuildJoints(count, out pc.rightConnect, out pc.rightWireEnd, out rrbs);
+=======
+
+        int c = 10;
+        pc.leftRigid = BuildJoints(c, out pc.leftHinge, out pc.leftCol);
+        pc.rightRigid = BuildJoints(c, out pc.rightHinge, out pc.rightCol);
+>>>>>>> origin/master
 
 
     }
@@ -37,7 +45,7 @@ public class JointBuilder : MonoBehaviour {
             if (i == 0) {
                 joint.connectedBody = rigid;
             } else {
-                joint.limits = new JointAngleLimits2D { min = -90, max = 90 };
+                joint.limits = new JointAngleLimits2D { min = -angle, max = angle };
                 joint.connectedBody = rbs[i - 1];
             }
 
