@@ -1,29 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(PlayerController))]
 public class JointBuilder : MonoBehaviour {
 
     public GameObject jointPrefab;
 
     Rigidbody2D rigid;
     PlayerController pc;
-
-
+    LineRenderer lr;
+    Rigidbody2D[] lrbs;
+    Rigidbody2D[] rrbs;
+    int count;
     // Use this for initialization
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
-
-        int c = 10;
-        pc.leftWire = BuildJoints(c, out pc.leftConnect, out pc.leftWireEnd);
-        pc.rightWire = BuildJoints(c, out pc.rightConnect, out pc.rightWireEnd);
+        lr = GetComponent<LineRenderer>();
+        count = 10;
+        pc.leftWire = BuildJoints(count, out pc.leftConnect, out pc.leftWireEnd, out lrbs);
+        pc.rightWire = BuildJoints(count, out pc.rightConnect, out pc.rightWireEnd, out rrbs);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count,out HingeJoint2D hingy, out CircleCollider2D colly) {
-        Rigidbody2D[] rbs = new Rigidbody2D[count];
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs) {
+        rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * 0.5f, 0, 0), Quaternion.identity, transform);
             go.name = "Joint" + i;
@@ -53,9 +57,17 @@ public class JointBuilder : MonoBehaviour {
         colly = null;
         return null;
     }
-
+    void RenderLine(int count) {
+        lr.positionCount = count * 2;
+        for(int i = lrbs.Length - 1; i >= 0; --i) {
+            lr.SetPosition(lrbs.Length - i - 1, lrbs[i].transform.position);
+        }
+        for(int j = lrbs.Length; j < lrbs.Length + rrbs.Length; ++j) {
+            lr.SetPosition(j, rrbs[j - lrbs.Length].transform.position);
+        }
+    }
     // Update is called once per frame
     void Update() {
-
+        RenderLine(count);
     }
 }
