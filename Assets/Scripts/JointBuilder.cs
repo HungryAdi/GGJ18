@@ -16,13 +16,13 @@ public class JointBuilder : MonoBehaviour {
         pc = GetComponent<PlayerController>();
 
         int c = 10;
-        pc.leftWire = BuildJoints(c);
-        pc.rightWire = BuildJoints(c);
+        pc.leftWire = BuildJoints(c, out pc.leftConnect, out pc.leftWireEnd);
+        pc.rightWire = BuildJoints(c, out pc.rightConnect, out pc.rightWireEnd);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count) {
+    Rigidbody2D BuildJoints(int count,out HingeJoint2D hingy, out CircleCollider2D colly) {
         Rigidbody2D[] rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * 0.5f, 0, 0), Quaternion.identity, transform);
@@ -38,9 +38,19 @@ public class JointBuilder : MonoBehaviour {
             }
 
             if (i == count - 1) {
+                CircleCollider2D coll;
+                coll = go.AddComponent<CircleCollider2D>();
+                coll.isTrigger = true;
+                go.layer = 8;
+                HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
+                hj.enabled = false;
+                hingy = hj;
+                colly = coll;
                 return rb;
             }
         }
+        hingy = null;
+        colly = null;
         return null;
     }
 
