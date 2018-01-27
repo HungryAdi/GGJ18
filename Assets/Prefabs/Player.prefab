@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50594762837329474}
   - component: {fileID: 58144213883043096}
   - component: {fileID: 120208322999576844}
-  - component: {fileID: 114033300504057436}
+  - component: {fileID: 114305406673592980}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -57,15 +57,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 200
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &58144213883043096
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -81,23 +81,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114033300504057436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1100158023576808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164d1fae89f0bb24d956569ab35882be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftType: 4
-  rightType: 4
-  leftWire: {fileID: 0}
-  rightWire: {fileID: 0}
-  connectedToWall: 0
-  powered: 0
 --- !u!114 &114225222308138736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,6 +111,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114305406673592980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100158023576808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164d1fae89f0bb24d956569ab35882be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftType: 4
+  rightType: 4
+  leftWire: {fileID: 0}
+  rightWire: {fileID: 0}
+  connectedToWall: 0
+  powered: 0
 --- !u!114 &114773467934970550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +156,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4de36ea0be987c54d965ef5ee0f7b3bc, type: 2}
+  - {fileID: 2100000, guid: 19ba978c3bc949a4dade44d2fc692745, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,7 +223,7 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 4
     numCapVertices: 4
     alignment: 0
     textureMode: 0
@@ -264,7 +264,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 820449a66f3d8ba44880ac5142d6cd53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd357258b1771f141a4a1177da28e5ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
