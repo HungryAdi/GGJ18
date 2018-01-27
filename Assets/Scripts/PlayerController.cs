@@ -5,23 +5,25 @@ using XInputDotNetPure; // Required in C#
 
 public class PlayerController : MonoBehaviour {
     public PlayerIndex index;
-    [HideInInspector]
-    public Rigidbody2D leftWire;
-    [HideInInspector]
-    public HingeJoint2D leftConnect;
-    [HideInInspector]
-    public Rigidbody2D rightWire;
-    [HideInInspector]
-    public HingeJoint2D rightConnect;
-    [HideInInspector]
-    public CircleCollider2D leftWireEnd;
-    [HideInInspector]
-    public CircleCollider2D rightWireEnd;
-
-    public Collider2D[] overlapArr = new Collider2D[10];
-
-
     public float armSpeed = 5.0f;
+
+
+    [HideInInspector]
+    public Rigidbody2D leftRigid;
+    [HideInInspector]
+    public HingeJoint2D leftHinge;
+    [HideInInspector]
+    public CircleCollider2D leftCol;
+
+    [HideInInspector]
+    public Rigidbody2D rightRigid;
+    [HideInInspector]
+    public HingeJoint2D rightHinge;
+    [HideInInspector]
+    public CircleCollider2D rightCol;
+
+    [HideInInspector]
+    public Collider2D[] overlapArr = new Collider2D[10];
 
     // Use this for initialization
     void Start() {
@@ -35,56 +37,46 @@ public class PlayerController : MonoBehaviour {
         float rx = GamePad.GetState(index).ThumbSticks.Right.X;
         float ry = GamePad.GetState(index).ThumbSticks.Right.Y;
 
-        leftWire.velocity = new Vector3(lx, ly) * armSpeed;
-        rightWire.velocity = new Vector3(rx, ry) * armSpeed;
+        leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
+        rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
-        if (GamePad.GetState(index).Triggers.Left > .5f && !leftConnect.enabled)
-        {
+        CheckWire(GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
+        CheckWire(GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
 
-            int count = Physics2D.OverlapCircleNonAlloc(leftWire.transform.position, leftWireEnd.radius * leftWireEnd.transform.localScale.x, overlapArr,1<<8);
+    }
+
+    void CheckWire(float triggerValue, HingeJoint2D connector, CircleCollider2D col) {
+        if (triggerValue > .5f && !connector.enabled) { // if trigger down
+            // find all nearby things on connect layer
+            int count = Physics2D.OverlapCircleNonAlloc(col.transform.position, col.radius * col.transform.localScale.x, overlapArr, 1 << 8);
+
+            // find closest object
             Collider2D closestOverlap = null;
             float distance = float.PositiveInfinity;
-            for (int i = 0; i < count; i++)
-            {
-                if(overlapArr[i] == leftWireEnd)
+            for (int i = 0; i < count; i++) {
+                if (overlapArr[i] == col)
                     continue;
-                float sqr = Vector2.SqrMagnitude(overlapArr[i].transform.position - leftWire.transform.position);
-                if (sqr < distance)
-                {
+                float sqr = Vector2.SqrMagnitude(overlapArr[i].transform.position - col.transform.position);
+                if (sqr < distance) {
                     distance = sqr;
                     closestOverlap = overlapArr[i];
                 }
             }
-            if (closestOverlap)
-            {
-                leftConnect.enabled = true;
-                Rigidbody2D rb2d = closestOverlap.GetComponent<Rigidbody2D>();
-                if (rb2d)
-                    leftConnect.connectedBody = rb2d;
+
+            // if found any object
+            if (closestOverlap) {
+                connector.enabled = true;
+                Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
+                if (closestRb)
+                    connector.connectedBody = closestRb;
                 else
-                    leftConnect.connectedAnchor = closestOverlap.transform.position;
+                    connector.connectedAnchor = closestOverlap.transform.position;
             }
-                
+
+        } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
+            connector.connectedBody = null;
+            connector.enabled = false;
         }
-        else if(GamePad.GetState(index).Triggers.Left <= .5f)
-        {
-            if (leftConnect.enabled)
-            {
-                leftConnect.connectedBody = null;
-                leftConnect.enabled = false;
-            }
-        }
-
-        if (GamePad.GetState(index).Triggers.Right > .5f && !rightConnect.enabled)
-        {
-        }
-
-        //leftWire.AddForce(new Vector3(lx, ly)*armSpeed);
-        //rightWire.AddForce(new Vector3(rx, ry)*armSpeed);
-
-        //leftWire.transform.Translate(new Vector3(lx, ly) * Time.deltaTime);
-        //rightWire.transform.Translate(new Vector3(rx, ry) * Time.deltaTime);
-
     }
 
 

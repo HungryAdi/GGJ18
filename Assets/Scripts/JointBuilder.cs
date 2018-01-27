@@ -17,8 +17,8 @@ public class JointBuilder : MonoBehaviour {
         pc = GetComponent<PlayerController>();
 
         int c = 10;
-        pc.leftWire = BuildJoints(c, out pc.leftConnect, out pc.leftWireEnd);
-        pc.rightWire = BuildJoints(c, out pc.rightConnect, out pc.rightWireEnd);
+        pc.leftRigid = BuildJoints(c, out pc.leftHinge, out pc.leftCol);
+        pc.rightRigid = BuildJoints(c, out pc.rightHinge, out pc.rightCol);
 
 
     }

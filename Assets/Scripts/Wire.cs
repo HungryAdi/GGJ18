@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour {
 
+    bool leftPower = false;
+    bool rightPower = false;
+
 	// Use this for initialization
 	void Start () {
 		
