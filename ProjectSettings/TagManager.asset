@@ -8,6 +8,7 @@ TagManager:
   - Connect
   - User
   - Source
+  - Players
   layers:
   - Default
   - TransparentFX

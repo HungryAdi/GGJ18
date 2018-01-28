@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
         if (wire.connectedToWall)
             rb2d.mass = .5f;
         else
-            rb2d.mass = 100f;
+            rb2d.mass = 150f;
         float lx = GamePad.GetState(index).ThumbSticks.Left.X;
         float ly = GamePad.GetState(index).ThumbSticks.Left.Y;
 
