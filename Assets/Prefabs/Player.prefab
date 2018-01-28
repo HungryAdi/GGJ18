@@ -141,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointPrefab: {fileID: 1789574740074360, guid: 327956fe0c5194b4180d0757c952f718,
     type: 2}
+  particlesPrefab: {fileID: 1446817472125566, guid: 20dcf892e2e104745b0bac8436941bc7,
+    type: 2}
   angle: 60
 --- !u!120 &120208322999576844
 LineRenderer:

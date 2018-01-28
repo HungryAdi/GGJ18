@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-    Wire wire;
+    public Wire wire;
 
 
     // Use this for initialization
