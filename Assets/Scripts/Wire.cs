@@ -3,31 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PowerSource : MonoBehaviour {
-
-    bool powered = true;
-
-    void LateUpdate() {
-
-        // check if can read a PowerUser
-        if (powered) {
-            // look down line for poweruser
-
-        }
-
-
-    }
-}
 
 public class PowerUser : MonoBehaviour {
 
+    static List<PowerUser> users = new List<PowerUser>();
 
-    public void Power() {
-
+    public void Start() {
+        users.Add(this);
     }
 
-    public void Update() {
-        // set thing to false
+    public virtual void SetPower(bool powered) {
+    }
+
+    public static void OffAll() {
+        for (int i = 0; i < users.Count; ++i) {
+            users[i].SetPower(false);
+        }
     }
 
 }
@@ -49,6 +40,9 @@ public class Wire : MonoBehaviour {
     public Wire leftWire = null;
     public Wire rightWire = null;
 
+    public PowerUser leftPow = null;
+    public PowerUser rightPow = null;
+
     public bool connectedToWall = false;
     public bool powered = false;
 
@@ -68,9 +62,11 @@ public class Wire : MonoBehaviour {
         if (rightArm) {
             rightType = CType.NULL;
             rightWire = null;
+            rightPow = null;
         } else {
             leftType = CType.NULL;
             leftWire = null;
+            leftPow = null;
         }
 
         UpdateAllWires();
@@ -89,6 +85,14 @@ public class Wire : MonoBehaviour {
                 }
             }
         } else if (col.CompareTag("User")) {
+            PowerUser pu = col.GetComponent<PowerUser>();
+            if (pu) {
+                if (rightArm) {
+                    rightPow = pu;
+                } else {
+                    leftPow = pu;
+                }
+            }
             type = CType.USER;
         } else if (col.CompareTag("Source")) {
             type = CType.SOURCE;
@@ -106,16 +110,20 @@ public class Wire : MonoBehaviour {
     }
 
     void UpdateConnection() {
-        connectedToWall = leftType == CType.WALL || rightType == CType.WALL;
+        // wall is WALL USER or SOURCE (below is demorgans of that)
+        connectedToWall = (leftType != CType.PLAYER && leftType != CType.NULL) || (rightType != CType.PLAYER && rightType != CType.NULL);
         powered = leftType == CType.SOURCE || rightType == CType.SOURCE;
     }
 
     public static void UpdateAllWires() {
+
+        PowerUser.OffAll();
+
         for (int i = 0; i < wires.Count; ++i) {
             wires[i].UpdateConnection();
         }
 
-        // propogate twice
+        // propogate twice 
         for (int i = 0; i < wires.Count; ++i) {
             wires[i].Propogate();
         }
@@ -123,6 +131,22 @@ public class Wire : MonoBehaviour {
             wires[i].Propogate();
         }
 
+        // check them out??? i dunno i hate my life
+        for (int i = 0; i < wires.Count; ++i) {
+            if (wires[i].powered) {
+                wires[i].CheckPowerStatus();
+            }
+        }
+
+    }
+
+    public void CheckPowerStatus() {
+        if (leftType == CType.USER) {
+            leftPow.SetPower(true);
+        }
+        if (rightType == CType.USER) {
+            rightPow.SetPower(true);
+        }
     }
 
     // send out your states
