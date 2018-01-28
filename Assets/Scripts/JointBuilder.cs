@@ -40,7 +40,6 @@ public class JointBuilder : MonoBehaviour {
             rbs[i] = rb;
             if (i == 0) {
                 joint.connectedBody = rigid;
-                joint.limits = new JointAngleLimits2D { min = -90, max = 90};
             } else {
                 joint.limits = new JointAngleLimits2D { min = -angle * (.1f * i), max = angle * (.1f * i) };
                 joint.connectedBody = rbs[i - 1];
