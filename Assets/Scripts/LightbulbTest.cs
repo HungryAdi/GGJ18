@@ -6,14 +6,14 @@ public class LightbulbTest : PowerUser {
 
     SpriteRenderer sr;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected override void Start() {
         base.Start();
         sr = GetComponent<SpriteRenderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 

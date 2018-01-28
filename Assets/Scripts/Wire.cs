@@ -6,7 +6,7 @@ public class PowerUser : MonoBehaviour {
 
     static List<PowerUser> users = new List<PowerUser>();
 
-    public void Start() {
+    protected virtual void Start() {
         users.Add(this);
     }
 

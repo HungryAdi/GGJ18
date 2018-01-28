@@ -28,13 +28,13 @@ public class JointBuilder : MonoBehaviour {
         wire = GetComponent<Wire>();
         lr = GetComponent<LineRenderer>();
         count = 10;
-        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
-        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps);
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps, false);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps, true);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps) {
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps, bool right) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * .5f, 0, 0), Quaternion.identity, transform);
@@ -52,6 +52,7 @@ public class JointBuilder : MonoBehaviour {
             if (i == count - 1) {
                 CircleCollider2D coll;
                 coll = go.AddComponent<CircleCollider2D>();
+                coll.radius *= 1.5f;
                 coll.isTrigger = true;
                 GameObject particles = Instantiate(particlesPrefab, go.transform.position, Quaternion.identity);
                 ps = particles.GetComponent<ParticleSystem>();
@@ -59,7 +60,21 @@ public class JointBuilder : MonoBehaviour {
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
-                //go.AddComponent<Hinge>();
+                GameObject circs = Instantiate(new GameObject(), new Vector3(go.transform.position.x + .7f,go.transform.position.y,go.transform.position.z), Quaternion.identity);
+                
+                Vector2 loc = circs.transform.localScale;
+                loc.x *= .8f;
+                circs.transform.localScale = loc;
+
+                SpriteRenderer sr = circs.AddComponent<SpriteRenderer>();
+                sr.sprite = Resources.Load<Sprite>("Art/Sprites/Plugs/plug" + Random.Range(1,7));
+                circs.transform.SetParent(go.transform);
+                sr.sortingOrder = 5;
+                //sr.color = (right ? Color.red : Color.green);
+                //sr.sprite = Resources.Load<Sprite>("Art/Sprites/Background Stuff/bottom_light");
+                //circs.transform.SetParent(go.transform);
+                //sr.sortingOrder = 5;
+                //sr.color = (right ? Color.red : Color.green);
                 hj.enabled = false;
                 hingy = hj;
                 colly = coll;
