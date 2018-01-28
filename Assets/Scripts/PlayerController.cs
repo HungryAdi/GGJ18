@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         wire = GetComponent<Wire>();
         rb2d = GetComponent<Rigidbody2D>();
-
     }
 
     // Update is called once per frame
@@ -49,16 +48,8 @@ public class PlayerController : MonoBehaviour {
         float rx = GamePad.GetState(index).ThumbSticks.Right.X;
         float ry = GamePad.GetState(index).ThumbSticks.Right.Y;
 
-        if (wire.leftType == CType.PLAYER || wire.leftType == CType.NULL) {
-            leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
-        } else {
-
-        }
-        if (wire.rightType == CType.PLAYER || wire.rightType == CType.NULL) {
-            rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
-        } else {
-
-        }
+        leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
+        rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
 
         CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
@@ -69,7 +60,7 @@ public class PlayerController : MonoBehaviour {
         if (wire.powered) {
             //rb2d.AddForce(Random.insideUnitCircle * Random.value * 50.0f);
             float POWER = 100.0f;
-            if (wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
+            if(wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
                 POWER *= 5.0f;
             }
             rb2d.velocity = Random.insideUnitCircle * Random.value * POWER;
@@ -152,11 +143,10 @@ public class PlayerController : MonoBehaviour {
                     leftMotorTime = 0.3f;
                 }
 
-                if (closestRb) {
+                if (closestRb)
                     connector.connectedBody = closestRb;
-                } else {
+                else
                     connector.connectedAnchor = closestOverlap.transform.position;
-                }
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
