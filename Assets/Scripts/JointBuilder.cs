@@ -24,8 +24,8 @@ public class JointBuilder : MonoBehaviour {
         pc = GetComponent<PlayerController>();
         lr = GetComponent<LineRenderer>();
         count = 5;
-        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs);
-        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs);
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps);
 
 
     }
