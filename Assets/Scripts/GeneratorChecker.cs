@@ -8,12 +8,12 @@ public class GeneratorChecker : MonoBehaviour {
 
     public List<GeneratorTip> tips;
 
-    //SoundPlayer music;
+    SongPlayer music;
 
     // Use this for initialization
     void Start() {
         StartCoroutine(CheckMyTips());
-        //music = GetComponent<SoundPlayer>();
+        music = GameObject.Find("SongPlayer").GetComponent<SongPlayer>();
     }
 
     WaitForSeconds wait = new WaitForSeconds(0.2f);
@@ -33,6 +33,7 @@ public class GeneratorChecker : MonoBehaviour {
                 for(int i = 0; i < tips.Count; ++i) { 
                     tips[i].freeze = true;
                 }
+                music.PlayGeneratorSound();
                 break;
             }
 
