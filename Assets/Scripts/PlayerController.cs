@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour {
 
         if (wire.connectedToWall)
         {
-            leftRigid.velocity *= 2;
-            rightRigid.velocity *= 2;
+            //leftRigid.velocity *= 2;
+            //rightRigid.velocity *= 2;
         }
 
 

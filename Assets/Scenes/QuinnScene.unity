@@ -275,22 +275,6 @@ Prefab:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 50594762837329474, guid: e20ac493afecaf1448e9285020668b1a,
-        type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114225222308138736, guid: e20ac493afecaf1448e9285020668b1a,
-        type: 2}
-      propertyPath: armSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114773467934970550, guid: e20ac493afecaf1448e9285020668b1a,
-        type: 2}
-      propertyPath: particlesPrefab
-      value: 
-      objectReference: {fileID: 1446817472125566, guid: 20dcf892e2e104745b0bac8436941bc7,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e20ac493afecaf1448e9285020668b1a, type: 2}
   m_IsPrefabParent: 0

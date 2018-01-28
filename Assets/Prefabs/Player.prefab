@@ -127,6 +127,8 @@ MonoBehaviour:
   rightType: 4
   leftWire: {fileID: 0}
   rightWire: {fileID: 0}
+  leftPow: {fileID: 0}
+  rightPow: {fileID: 0}
   connectedToWall: 0
   powered: 0
 --- !u!114 &114773467934970550

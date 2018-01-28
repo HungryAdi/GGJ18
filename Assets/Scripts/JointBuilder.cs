@@ -23,7 +23,7 @@ public class JointBuilder : MonoBehaviour {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
         lr = GetComponent<LineRenderer>();
-        count = 5;
+        count = 10;
         pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
         pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps);
 
@@ -33,7 +33,7 @@ public class JointBuilder : MonoBehaviour {
     Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
-            GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i, 0, 0), Quaternion.identity, transform);
+            GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * .5f, 0, 0), Quaternion.identity, transform);
             go.name = "Joint" + i;
             HingeJoint2D joint = go.GetComponent<HingeJoint2D>();
             Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
@@ -41,7 +41,7 @@ public class JointBuilder : MonoBehaviour {
             if (i == 0) {
                 joint.connectedBody = rigid;
             } else {
-                joint.limits = new JointAngleLimits2D { min = -angle * (.1f * i), max = angle * (.1f * i) };
+                joint.limits = new JointAngleLimits2D { min = -angle, max = angle };
                 joint.connectedBody = rbs[i - 1];
             }
 
