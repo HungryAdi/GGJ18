@@ -20,9 +20,11 @@ public class camerastuff : MonoBehaviour
     public float camZoomOut;
     private int playerPressed = 0;
     private bool actions = true;
+    private float timer;
     // Use this for initialization
     void Start()
     {
+        timer = 0;
         players = GameObject.FindGameObjectsWithTag("Players");
     }
 
@@ -112,17 +114,20 @@ public class camerastuff : MonoBehaviour
         Vector3 cam = Camera.main.transform.position;
         cam.z = -camZoomOut;
         zoomedOut = true;
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, 5.0f * Time.deltaTime);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, Time.deltaTime);
     }
 
-    IEnumerator ZoomOutTime(float time)
+    public IEnumerator ZoomOutTime(float time)
     {
-        Vector3 cam = Camera.main.transform.position;
-        cam.z = -camZoomOut;
-        zoomedOut = true;
-        actions = false;
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, 5.0f * Time.deltaTime);
-        yield return new WaitForSeconds(time);
+        while(timer < time) {
+            Vector3 cam = Camera.main.transform.position;
+            cam.z = -camZoomOut;
+            zoomedOut = true;
+            actions = false;
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
         zoomedOut = false;
         actions = true;
     }
