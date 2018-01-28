@@ -2133,115 +2133,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 4335038612384156, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4335038612384156, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4904155338354654, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 1920992359536096, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910505033671468, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 43.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 212242032732023078, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_DrawMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910505033671468, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910505033671468, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212242032732023078, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_SpriteTileMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212242032732023078, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 212242032732023078, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 212187200546202556, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_DrawMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4904155338354654, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4904155338354654, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212187200546202556, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_SpriteTileMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212187200546202556, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 212187200546202556, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 212600440637768590, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_DrawMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667383894821012, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4667383894821012, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212600440637768590, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_SpriteTileMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212600440637768590, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 212600440637768590, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 212944391876190650, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_DrawMode
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4027723558585222, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
       propertyPath: m_LocalScale.x
       value: 1
@@ -2250,29 +2141,29 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 212944391876190650, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_SpriteTileMode
+    - target: {fileID: 4667383894821012, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 212944391876190650, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 212944391876190650, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 4667383894821012, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4.5
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 212187200546202556, guid: 469ebbb442cf4e248825c5a3c9a15869,
-        type: 2}
-      propertyPath: m_AdaptiveModeThreshold
-      value: 0.5
+    - target: {fileID: 4910505033671468, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910505033671468, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904155338354654, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4904155338354654, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 469ebbb442cf4e248825c5a3c9a15869, type: 2}
