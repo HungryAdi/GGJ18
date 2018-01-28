@@ -180,6 +180,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col) {
+        if (col.collider.CompareTag("Exit")) {
+            Navigator.instance.LoadLevel("MainMenu");
+        }
+    }
+
     IEnumerator Vibration(bool rightArm, float forTime) {
         float t = 0.0f;
         float lft = !rightArm ? 1.0f : 0.0f;

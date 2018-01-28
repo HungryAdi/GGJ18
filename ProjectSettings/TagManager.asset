@@ -9,6 +9,7 @@ TagManager:
   - User
   - Source
   - Players
+  - Exit
   layers:
   - Default
   - TransparentFX
