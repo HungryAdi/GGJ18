@@ -9,9 +9,10 @@ public class JointBuilder : MonoBehaviour {
     public GameObject jointPrefab;
     public GameObject particlesPrefab;
     public float angle = 60.0f;
-    
+
     Rigidbody2D rigid;
     PlayerController pc;
+    Wire wire;
     LineRenderer lr;
     Rigidbody2D[] lrbs;
     Rigidbody2D[] rrbs;
@@ -22,6 +23,7 @@ public class JointBuilder : MonoBehaviour {
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
+        wire = GetComponent<Wire>();
         lr = GetComponent<LineRenderer>();
         count = 5;
         pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
@@ -80,12 +82,20 @@ public class JointBuilder : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         RenderLine(count);
-        if (pc.wire.connectedToWall) {
+
+        // show sparks if touching source, or if powered and touching a power user
+
+        if (wire.leftType == CType.SOURCE || (wire.leftType == CType.USER && wire.powered)) {
             lps.Play();
-            rps.Play();
         } else {
             lps.Stop();
+        }
+
+        if (wire.rightType == CType.SOURCE || (wire.rightType == CType.USER && wire.powered)) {
+            rps.Play();
+        } else {
             rps.Stop();
         }
+
     }
 }
