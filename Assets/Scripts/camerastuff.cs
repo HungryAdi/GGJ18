@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class camerastuff : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class camerastuff : MonoBehaviour
     float maxY = -Mathf.Infinity;
     Vector2 cameraBuffer = new Vector2(10, 10);
     float camSize;
+    private bool zoomedOut = false;
+    public float camZoomOut;
+    private int playerPressed = 0;
+    private bool actions = true;
     // Use this for initialization
     void Start()
     {
@@ -24,8 +29,33 @@ public class camerastuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CalculateBounds();
-        CalculateCameraPosAndSize();
+        if (actions)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (GamePad.GetState((PlayerIndex)(i)).Buttons.A == ButtonState.Pressed)
+                {
+                    ZoomOut(i);
+                    break;
+                }
+            }
+
+
+            if (GamePad.GetState((PlayerIndex)playerPressed).Buttons.A == ButtonState.Released)
+            {
+                zoomedOut = false;
+                playerPressed = 0;
+            }
+
+            if (!zoomedOut)
+            {
+                CalculateBounds();
+                CalculateCameraPosAndSize();
+            }
+        }
+
+
+
     }
 
     void CalculateBounds()
@@ -74,5 +104,26 @@ public class camerastuff : MonoBehaviour
         Vector3 cameraDist = Camera.main.transform.position;
         cameraDist.z = -camSize;
         Camera.main.transform.position = cameraDist;
+    }
+
+    void ZoomOut(int i)
+    {
+        playerPressed = i;
+        Vector3 cam = Camera.main.transform.position;
+        cam.z = -camZoomOut;
+        zoomedOut = true;
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, 5.0f * Time.deltaTime);
+    }
+
+    IEnumerator ZoomOutTime(float time)
+    {
+        Vector3 cam = Camera.main.transform.position;
+        cam.z = -camZoomOut;
+        zoomedOut = true;
+        actions = false;
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam, 5.0f * Time.deltaTime);
+        yield return new WaitForSeconds(time);
+        zoomedOut = false;
+        actions = true;
     }
 }
