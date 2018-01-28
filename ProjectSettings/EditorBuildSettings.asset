@@ -11,6 +11,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/QuinnNewScene.unity
     guid: 93d250dd4d3cff54791a888965600c9d
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: d660bb8a4e1aaf949a70228bf004b512

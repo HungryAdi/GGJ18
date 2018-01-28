@@ -26,14 +26,16 @@ public class PlayerController : MonoBehaviour {
     public Collider2D[] overlapArr = new Collider2D[10];
 
     private Rigidbody2D rb2d;
-
     Wire wire;
+
+    private AudioSource source;
 
 
     // Use this for initialization
     void Start() {
         wire = GetComponent<Wire>();
         rb2d = GetComponent<Rigidbody2D>();
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,19 +53,29 @@ public class PlayerController : MonoBehaviour {
         leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
         rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
-
         CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
         CheckWire(true, GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
 
     }
     void FixedUpdate() {
         if (wire.powered) {
+            //if (wire.leftType == CType.SOURCE || wire.rightType == CType.SOURCE) {
+            //    if (!source.isPlaying) {
+            //        source.Play();
+            //    }
+            //}
+
             //rb2d.AddForce(Random.insideUnitCircle * Random.value * 50.0f);
             float POWER = 100.0f;
-            if(wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
+            if (wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
                 POWER *= 5.0f;
+                if (!source.isPlaying) {
+                    source.Play();
+                }
             }
             rb2d.velocity = Random.insideUnitCircle * Random.value * POWER;
+        } else {
+            source.Stop();
         }
 
         SetRumbleTown();
@@ -143,10 +155,11 @@ public class PlayerController : MonoBehaviour {
                     leftMotorTime = 0.3f;
                 }
 
-                if (closestRb)
+                if (closestRb) {
                     connector.connectedBody = closestRb;
-                else
+                } else {
                     connector.connectedAnchor = closestOverlap.transform.position;
+                }
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down

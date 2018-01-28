@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 58144213883043096}
   - component: {fileID: 120208322999576844}
   - component: {fileID: 114305406673592980}
+  - component: {fileID: 82792772036560902}
   m_Layer: 0
   m_Name: Player
   m_TagString: Players
@@ -40,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100158023576808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 397.7, y: 92.8, z: 0}
+  m_LocalPosition: {x: 2.81, y: 0.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,6 +82,86 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!82 &82792772036560902
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100158023576808}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8184620b8d5151b4e864cafb228f2222, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.402
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114225222308138736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +213,9 @@ MonoBehaviour:
   powered: 0
   leftMotor: 0
   rightMotor: 0
+  generalConnect: {fileID: 8300000, guid: b5155b2d6b6a284479ec3830112f7e04, type: 3}
+  sourceConnect: {fileID: 8300000, guid: 2596d9de2fbc4a54fb1aba3d1f22426d, type: 3}
+  userConnect: {fileID: 8300000, guid: d40c7b2cc8027e847b6d2a0b260f6409, type: 3}
 --- !u!114 &114773467934970550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -148,6 +232,8 @@ MonoBehaviour:
   particlesPrefab: {fileID: 1446817472125566, guid: 20dcf892e2e104745b0bac8436941bc7,
     type: 2}
   angle: 60
+  sourceLeft: {fileID: 0}
+  sourceRight: {fileID: 0}
 --- !u!120 &120208322999576844
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -181,7 +267,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 0
   m_Positions: []
   m_Parameters:
     serializedVersion: 2

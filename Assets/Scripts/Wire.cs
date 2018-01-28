@@ -49,9 +49,16 @@ public class Wire : MonoBehaviour {
     [HideInInspector]
     public float rightMotor;
 
+    public AudioClip generalConnect;
+    public AudioClip sourceConnect;
+    public AudioClip userConnect;
+
+    JointBuilder jb;
+
     // Use this for initialization
     void Start() {
         wires.Add(this);
+        jb = GetComponent<JointBuilder>();
     }
 
     // Update is called once per frame
@@ -78,6 +85,14 @@ public class Wire : MonoBehaviour {
     public void Connect(bool rightArm, Collider2D col) {
         CType type = CType.WALL; // default to wall
         if (col.CompareTag("Player")) {
+            if (rightArm) {
+                jb.sourceRight.clip = generalConnect;
+                jb.sourceRight.Play();
+            } else {
+                jb.sourceLeft.clip = generalConnect;
+                jb.sourceLeft.Play();
+            }
+
             type = CType.PLAYER;
             Wire w = col.transform.parent.GetComponent<Wire>();
             if (w) {
@@ -88,6 +103,13 @@ public class Wire : MonoBehaviour {
                 }
             }
         } else if (col.CompareTag("User")) {
+            if (rightArm) {
+                jb.sourceRight.clip = userConnect;
+                jb.sourceRight.Play();
+            } else {
+                jb.sourceLeft.clip = userConnect;
+                jb.sourceLeft.Play();
+            }
             PowerUser pu = col.GetComponent<PowerUser>();
             if (pu) {
                 if (rightArm) {
@@ -98,9 +120,22 @@ public class Wire : MonoBehaviour {
             }
             type = CType.USER;
         } else if (col.CompareTag("Source")) {
+            if (rightArm) {
+                jb.sourceRight.clip = sourceConnect;
+                jb.sourceRight.Play();
+            } else {
+                jb.sourceLeft.clip = sourceConnect;
+                jb.sourceLeft.Play();
+            }
             type = CType.SOURCE;
         } else {
-            // bad?
+            if (rightArm) { // wall connect
+                jb.sourceRight.clip = generalConnect;
+                jb.sourceRight.Play();
+            } else {
+                jb.sourceLeft.clip = generalConnect;
+                jb.sourceLeft.Play();
+            }
         }
 
         if (rightArm) {
