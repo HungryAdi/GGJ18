@@ -20,6 +20,10 @@ public class JointBuilder : MonoBehaviour {
     Rigidbody2D[] rrbs;
     ParticleSystem lps;
     ParticleSystem rps;
+
+    public AudioSource sourceLeft;
+    public AudioSource sourceRight;
+
     int count;
     // Use this for initialization
     void Start() {
@@ -61,11 +65,20 @@ public class JointBuilder : MonoBehaviour {
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
-                GameObject circs = Instantiate(new GameObject(), new Vector3(go.transform.position.x + .7f,go.transform.position.y,go.transform.position.z), Quaternion.identity);
+                GameObject circs = Instantiate(new GameObject(), new Vector3(go.transform.position.x + .7f, go.transform.position.y, go.transform.position.z), Quaternion.identity);
                 circs.name = "ends";
                 Vector2 loc = circs.transform.localScale;
                 loc.x *= .8f;
                 circs.transform.localScale = loc;
+
+                // add audiosources
+                if (right) {
+                    sourceRight = circs.AddComponent<AudioSource>();
+                    sourceRight.volume = 0.7f;
+                } else {
+                    sourceLeft = circs.AddComponent<AudioSource>();
+                    sourceLeft.volume = 0.7f;
+                }
 
                 SpriteRenderer sr = circs.AddComponent<SpriteRenderer>();
                 string s = (right ? "3" : "7");

@@ -26,15 +26,16 @@ public class PlayerController : MonoBehaviour {
     public Collider2D[] overlapArr = new Collider2D[10];
 
     private Rigidbody2D rb2d;
-
     Wire wire;
+
+    private AudioSource source;
 
 
     // Use this for initialization
     void Start() {
         wire = GetComponent<Wire>();
         rb2d = GetComponent<Rigidbody2D>();
-
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,17 +50,8 @@ public class PlayerController : MonoBehaviour {
         float rx = GamePad.GetState(index).ThumbSticks.Right.X;
         float ry = GamePad.GetState(index).ThumbSticks.Right.Y;
 
-        if (wire.leftType == CType.PLAYER || wire.leftType == CType.NULL) {
-            leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
-        } else {
-
-        }
-        if (wire.rightType == CType.PLAYER || wire.rightType == CType.NULL) {
-            rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
-        } else {
-
-        }
-
+        leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
+        rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
         CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
         CheckWire(true, GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
@@ -67,12 +59,20 @@ public class PlayerController : MonoBehaviour {
     }
     void FixedUpdate() {
         if (wire.powered) {
+            if (wire.leftType == CType.SOURCE || wire.rightType == CType.SOURCE) {
+                if (!source.isPlaying) {
+                    source.Play();
+                }
+            }
+
             //rb2d.AddForce(Random.insideUnitCircle * Random.value * 50.0f);
             float POWER = 100.0f;
             if (wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
                 POWER *= 5.0f;
             }
             rb2d.velocity = Random.insideUnitCircle * Random.value * POWER;
+        } else {
+            source.Stop();
         }
 
         SetRumbleTown();
