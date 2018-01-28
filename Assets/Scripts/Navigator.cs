@@ -7,6 +7,7 @@ public class Navigator : MonoBehaviour {
     public static Navigator instance;
     public GameObject mainMenuCanvas;
     public GameObject inGameMenuCanvas;
+    public GameObject credits;
 	// Use this for initialization
 	void Start () {
         if (!instance) {
@@ -33,7 +34,7 @@ public class Navigator : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode) {
         inGameMenuCanvas.SetActive(false);
-        if(scene.name == "Main") {
+        if(scene.name == "QuinnNewScene") {
             mainMenuCanvas.SetActive(false);
         }
         if(scene.name == "MainMenu") {
@@ -52,5 +53,10 @@ public class Navigator : MonoBehaviour {
         } else {
             SceneManager.LoadScene(level);
         }
+    }
+
+    public void ToggleCredits(bool Toggle)
+    {
+        credits.SetActive(Toggle);
     }
 }
