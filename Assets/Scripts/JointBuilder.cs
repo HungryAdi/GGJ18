@@ -7,30 +7,33 @@ using UnityEngine;
 public class JointBuilder : MonoBehaviour {
 
     public GameObject jointPrefab;
+    public GameObject particlesPrefab;
     public float angle = 60.0f;
-
+    
     Rigidbody2D rigid;
     PlayerController pc;
     LineRenderer lr;
     Rigidbody2D[] lrbs;
     Rigidbody2D[] rrbs;
+    ParticleSystem lps;
+    ParticleSystem rps;
     int count;
     // Use this for initialization
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         pc = GetComponent<PlayerController>();
         lr = GetComponent<LineRenderer>();
-        count = 10;
-        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs);
-        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs);
+        count = 5;
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs) {
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
-            GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * 0.5f, 0, 0), Quaternion.identity, transform);
+            GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i, 0, 0), Quaternion.identity, transform);
             go.name = "Joint" + i;
             HingeJoint2D joint = go.GetComponent<HingeJoint2D>();
             Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
@@ -38,7 +41,7 @@ public class JointBuilder : MonoBehaviour {
             if (i == 0) {
                 joint.connectedBody = rigid;
             } else {
-                joint.limits = new JointAngleLimits2D { min = -angle, max = angle };
+                joint.limits = new JointAngleLimits2D { min = -angle * (.1f * i), max = angle * (.1f * i) };
                 joint.connectedBody = rbs[i - 1];
             }
 
@@ -46,6 +49,9 @@ public class JointBuilder : MonoBehaviour {
                 CircleCollider2D coll;
                 coll = go.AddComponent<CircleCollider2D>();
                 coll.isTrigger = true;
+                GameObject particles = Instantiate(particlesPrefab, go.transform.position, Quaternion.identity);
+                ps = particles.GetComponent<ParticleSystem>();
+                particles.transform.SetParent(go.transform);
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
@@ -58,6 +64,7 @@ public class JointBuilder : MonoBehaviour {
         }
         hingy = null;
         colly = null;
+        ps = null;
         return null;
     }
     void RenderLine(int count) {
@@ -73,5 +80,12 @@ public class JointBuilder : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         RenderLine(count);
+        if (pc.wire.connectedToWall) {
+            lps.Play();
+            rps.Play();
+        } else {
+            lps.Stop();
+            rps.Stop();
+        }
     }
 }

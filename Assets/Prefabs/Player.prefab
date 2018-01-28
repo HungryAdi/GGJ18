@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1100158023576808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,7 +65,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58144213883043096
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  armSpeed: 5
+  armSpeed: 20
   leftRigid: {fileID: 0}
   leftHinge: {fileID: 0}
   leftCol: {fileID: 0}
@@ -111,6 +111,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  wire: {fileID: 0}
 --- !u!114 &114305406673592980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jointPrefab: {fileID: 1789574740074360, guid: 327956fe0c5194b4180d0757c952f718,
+    type: 2}
+  particlesPrefab: {fileID: 1446817472125566, guid: 20dcf892e2e104745b0bac8436941bc7,
     type: 2}
   angle: 60
 --- !u!120 &120208322999576844
