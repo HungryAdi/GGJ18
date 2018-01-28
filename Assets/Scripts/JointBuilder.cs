@@ -55,13 +55,14 @@ public class JointBuilder : MonoBehaviour {
                 coll.radius *= 1.5f;
                 coll.isTrigger = true;
                 GameObject particles = Instantiate(particlesPrefab, go.transform.position, Quaternion.identity);
+                particles.name = ("particle");
                 ps = particles.GetComponent<ParticleSystem>();
                 particles.transform.SetParent(go.transform);
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
                 GameObject circs = Instantiate(new GameObject(), new Vector3(go.transform.position.x + .7f,go.transform.position.y,go.transform.position.z), Quaternion.identity);
-                
+                circs.name = "ends";
                 Vector2 loc = circs.transform.localScale;
                 loc.x *= .8f;
                 circs.transform.localScale = loc;
