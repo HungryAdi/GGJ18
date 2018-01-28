@@ -5,7 +5,7 @@ using XInputDotNetPure; // Required in C#
 
 public class PlayerController : MonoBehaviour {
     public PlayerIndex index;
-    public float armSpeed = 5.0f;
+    public float armSpeed;
 
 
     [HideInInspector]
@@ -51,6 +51,13 @@ public class PlayerController : MonoBehaviour {
         leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
         rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
+        if (wire.connectedToWall)
+        {
+            leftRigid.velocity *= 2;
+            rightRigid.velocity *= 2;
+        }
+
+
         CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
         CheckWire(true, GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
     }
@@ -76,7 +83,6 @@ public class PlayerController : MonoBehaviour {
             // if found any object
             if (closestOverlap) {
                 connector.enabled = true;
-
                 Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
 
                 wire.Connect(rightArm, closestOverlap);
@@ -88,7 +94,7 @@ public class PlayerController : MonoBehaviour {
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
-
+            connector.useMotor = false;
             connector.connectedBody = null;
             connector.enabled = false;
 
