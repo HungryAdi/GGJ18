@@ -63,14 +63,16 @@ public class camerastuff : MonoBehaviour
         Quaternion rot;
         rot = Quaternion.Euler(angles);
         pos = rot * new Vector3(0f, 0f, -camDist) + finalCameraCenter;
-        transform.rotation = rot;
+        //transform.rotation = rot;
         transform.position = Vector3.Lerp(transform.position, pos, camSpeed * Time.deltaTime);
-        finalLookAt = Vector3.Lerp(finalLookAt, finalCameraCenter, camSpeed * Time.deltaTime);
-        transform.LookAt(finalLookAt);
+        //finalLookAt = Vector3.Lerp(finalLookAt, finalCameraCenter, camSpeed * Time.deltaTime);
+        //transform.LookAt(finalLookAt);
         //Size
         float sizeX = maxX - minX + cameraBuffer.x;
         float sizeY = maxY - minY + cameraBuffer.y;
         camSize = (sizeX > sizeY ? sizeX : sizeY);
-        Camera.main.orthographicSize = camSize * 0.5f;
+        Vector3 cameraDist = Camera.main.transform.position;
+        cameraDist.z = -camSize;
+        Camera.main.transform.position = cameraDist;
     }
 }

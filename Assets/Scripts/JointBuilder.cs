@@ -67,7 +67,8 @@ public class JointBuilder : MonoBehaviour {
                 circs.transform.localScale = loc;
 
                 SpriteRenderer sr = circs.AddComponent<SpriteRenderer>();
-                sr.sprite = Resources.Load<Sprite>("Art/Sprites/Plugs/plug" + Random.Range(1,7));
+                string s = (right ? "3" : "7");
+                sr.sprite = Resources.Load<Sprite>("Art/Sprites/Plugs/plug" + s);
                 circs.transform.SetParent(go.transform);
                 sr.sortingOrder = 5;
                 //sr.color = (right ? Color.red : Color.green);
