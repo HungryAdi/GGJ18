@@ -2926,6 +2926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angles: {x: 0, y: 0, z: 0}
+  camZoomOut: 100
 --- !u!1001 &2117891545
 Prefab:
   m_ObjectHideFlags: 0
