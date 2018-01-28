@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class PowerUser : MonoBehaviour {
 
     static List<PowerUser> users = new List<PowerUser>();
@@ -45,6 +43,11 @@ public class Wire : MonoBehaviour {
 
     public bool connectedToWall = false;
     public bool powered = false;
+
+    [HideInInspector]
+    public float leftMotor;
+    [HideInInspector]
+    public float rightMotor;
 
     // Use this for initialization
     void Start() {
