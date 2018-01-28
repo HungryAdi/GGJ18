@@ -59,16 +59,19 @@ public class PlayerController : MonoBehaviour {
     }
     void FixedUpdate() {
         if (wire.powered) {
-            if (wire.leftType == CType.SOURCE || wire.rightType == CType.SOURCE) {
-                if (!source.isPlaying) {
-                    source.Play();
-                }
-            }
+            //if (wire.leftType == CType.SOURCE || wire.rightType == CType.SOURCE) {
+            //    if (!source.isPlaying) {
+            //        source.Play();
+            //    }
+            //}
 
             //rb2d.AddForce(Random.insideUnitCircle * Random.value * 50.0f);
             float POWER = 100.0f;
             if (wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
                 POWER *= 5.0f;
+                if (!source.isPlaying) {
+                    source.Play();
+                }
             }
             rb2d.velocity = Random.insideUnitCircle * Random.value * POWER;
         } else {

@@ -8,9 +8,12 @@ public class GeneratorChecker : MonoBehaviour {
 
     public List<GeneratorTip> tips;
 
+    //SoundPlayer music;
+
     // Use this for initialization
     void Start() {
         StartCoroutine(CheckMyTips());
+        //music = GetComponent<SoundPlayer>();
     }
 
     WaitForSeconds wait = new WaitForSeconds(0.2f);

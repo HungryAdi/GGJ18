@@ -86,15 +86,11 @@ public class Wire : MonoBehaviour {
         CType type = CType.WALL; // default to wall
         if (col.CompareTag("Player")) {
             if (rightArm) {
-                if (!jb.sourceRight.isPlaying) {
-                    jb.sourceRight.clip = generalConnect;
-                    jb.sourceRight.Play();
-                }
+                jb.sourceRight.clip = generalConnect;
+                jb.sourceRight.Play();
             } else {
-                if (!jb.sourceLeft.isPlaying) {
-                    jb.sourceLeft.clip = generalConnect;
-                    jb.sourceLeft.Play();
-                }
+                jb.sourceLeft.clip = generalConnect;
+                jb.sourceLeft.Play();
             }
 
             type = CType.PLAYER;
@@ -108,15 +104,11 @@ public class Wire : MonoBehaviour {
             }
         } else if (col.CompareTag("User")) {
             if (rightArm) {
-                if (!jb.sourceRight.isPlaying) {
-                    jb.sourceRight.clip = userConnect;
-                    jb.sourceRight.Play();
-                }
+                jb.sourceRight.clip = userConnect;
+                jb.sourceRight.Play();
             } else {
-                if (!jb.sourceLeft.isPlaying) {
-                    jb.sourceLeft.clip = userConnect;
-                    jb.sourceLeft.Play();
-                }
+                jb.sourceLeft.clip = userConnect;
+                jb.sourceLeft.Play();
             }
             PowerUser pu = col.GetComponent<PowerUser>();
             if (pu) {
@@ -129,28 +121,20 @@ public class Wire : MonoBehaviour {
             type = CType.USER;
         } else if (col.CompareTag("Source")) {
             if (rightArm) {
-                if (!jb.sourceRight.isPlaying) {
-                    jb.sourceRight.clip = sourceConnect;
-                    jb.sourceRight.Play();
-                }
+                jb.sourceRight.clip = sourceConnect;
+                jb.sourceRight.Play();
             } else {
-                if (!jb.sourceLeft.isPlaying) {
-                    jb.sourceLeft.clip = sourceConnect;
-                    jb.sourceLeft.Play();
-                }
+                jb.sourceLeft.clip = sourceConnect;
+                jb.sourceLeft.Play();
             }
             type = CType.SOURCE;
         } else {
             if (rightArm) { // wall connect
-                if (!jb.sourceRight.isPlaying) {
-                    jb.sourceRight.clip = generalConnect;
-                    jb.sourceRight.Play();
-                }
+                jb.sourceRight.clip = generalConnect;
+                jb.sourceRight.Play();
             } else {
-                if (!jb.sourceLeft.isPlaying) {
-                    jb.sourceLeft.clip = generalConnect;
-                    jb.sourceLeft.Play();
-                }
+                jb.sourceLeft.clip = generalConnect;
+                jb.sourceLeft.Play();
             }
         }
 
