@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure; // Required in C#
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(PlayerController))]
@@ -100,14 +102,22 @@ public class JointBuilder : MonoBehaviour {
 
         // show sparks if touching source, or if powered and touching a power user
 
-        if (wire.leftType == CType.SOURCE || (wire.leftType == CType.USER && wire.powered)) {
-            lps.Play();
+        bool leftSource = wire.leftType == CType.SOURCE;
+        bool leftPower = wire.leftType == CType.USER && wire.powered;
+        if (leftSource || leftPower) {
+            if (!lps.isPlaying) {
+                lps.Play();
+            }
         } else {
             lps.Stop();
         }
 
-        if (wire.rightType == CType.SOURCE || (wire.rightType == CType.USER && wire.powered)) {
-            rps.Play();
+        bool rightSource = wire.rightType == CType.SOURCE;
+        bool rightPower = wire.rightType == CType.USER && wire.powered;
+        if (rightSource || rightPower) {
+            if (!rps.isPlaying) {
+                rps.Play();
+            }
         } else {
             rps.Stop();
         }

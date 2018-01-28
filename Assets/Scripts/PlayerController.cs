@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-    public Wire wire;
+    Wire wire;
 
 
     // Use this for initialization
@@ -51,15 +51,66 @@ public class PlayerController : MonoBehaviour {
         leftRigid.velocity = new Vector3(lx, ly) * armSpeed;
         rightRigid.velocity = new Vector3(rx, ry) * armSpeed;
 
-        if (wire.connectedToWall)
-        {
-            //leftRigid.velocity *= 2;
-            //rightRigid.velocity *= 2;
-        }
-
 
         CheckWire(false, GamePad.GetState(index).Triggers.Left, leftHinge, leftCol);
         CheckWire(true, GamePad.GetState(index).Triggers.Right, rightHinge, rightCol);
+
+    }
+    void FixedUpdate() {
+        if (wire.powered) {
+            //rb2d.AddForce(Random.insideUnitCircle * Random.value * 50.0f);
+            float POWER = 100.0f;
+            if(wire.leftType == CType.SOURCE && wire.rightType == CType.USER || wire.rightType == CType.SOURCE && wire.leftType == CType.USER) {
+                POWER *= 5.0f;
+            }
+            rb2d.velocity = Random.insideUnitCircle * Random.value * POWER;
+        }
+
+        SetRumbleTown();
+    }
+
+    float leftMotorTime = 0.0f;
+    float rightMotorTime = 0.0f;
+
+    void SetRumbleTown() {
+        bool leftSource = wire.leftType == CType.SOURCE;
+        bool leftPower = wire.leftType == CType.USER && wire.powered;
+        bool rightSource = wire.rightType == CType.SOURCE;
+        bool rightPower = wire.rightType == CType.USER && wire.powered;
+
+        float leftMotor = 0.0f;
+        float rightMotor = 0.0f;
+        // take me to rumble town
+        if (leftSource && leftPower) {
+            leftMotor = 1.0f;
+        } else if (leftSource || leftPower) {
+            leftMotor = Mathf.Max(leftMotor, 0.2f);
+        }
+
+        if (leftSource && rightPower || rightSource && leftPower) {
+            leftMotor = 1.0f;
+            rightMotor = 1.0f;
+        } else {
+            if (leftSource || leftPower) {
+                leftMotor = Mathf.Max(leftMotor, 0.2f);
+            }
+            if (rightSource || rightPower) {
+                rightMotor = Mathf.Max(leftMotor, 0.2f);
+            }
+        }
+
+        leftMotorTime -= Time.deltaTime;
+        rightMotorTime -= Time.deltaTime;
+        if (leftMotorTime > 0.0f) {
+            leftMotor = Mathf.Max(leftMotor, 0.5f);
+        }
+        if (rightMotorTime > 0.0f) {
+            rightMotor = Mathf.Max(rightMotor, 0.5f);
+        }
+
+        // yes daddy
+        GamePad.SetVibration(index, leftMotor, rightMotor);
+        //Debug.Log(leftMotor + " " + rightMotor);
     }
 
     void CheckWire(bool rightArm, float triggerValue, HingeJoint2D connector, CircleCollider2D col) {
@@ -86,6 +137,11 @@ public class PlayerController : MonoBehaviour {
                 Rigidbody2D closestRb = closestOverlap.GetComponent<Rigidbody2D>();
 
                 wire.Connect(rightArm, closestOverlap);
+                if (rightArm) {
+                    rightMotorTime = 0.3f;
+                } else {
+                    leftMotorTime = 0.3f;
+                }
 
                 if (closestRb)
                     connector.connectedBody = closestRb;
@@ -94,11 +150,31 @@ public class PlayerController : MonoBehaviour {
             }
 
         } else if (triggerValue <= .5f && connector.enabled) {   // else disconnect if trigger isnt down
-            connector.useMotor = false;
             connector.connectedBody = null;
             connector.enabled = false;
 
+            // lock it but dont pop it (to combat electricity)
+            // this doesnt do shit because arms are all rigidbodies too so f this (saving for later) love john, godbless
+            //if (wire.powered) {
+            //    Debug.Log("depower");
+            //    float mag = rb2d.velocity.magnitude;
+            //    mag = Mathf.Min(mag, 1.0f);
+            //    rb2d.velocity = rb2d.velocity.normalized * mag;
+            //}
+
             wire.Disconnect(rightArm);
+
+        }
+    }
+
+    IEnumerator Vibration(bool rightArm, float forTime) {
+        float t = 0.0f;
+        float lft = !rightArm ? 1.0f : 0.0f;
+        float rght = rightArm ? 1.0f : 0.0f;
+        while (t < forTime) {
+            GamePad.SetVibration(index, lft, rght);
+            t += Time.deltaTime;
+            yield return null;
         }
     }
 
