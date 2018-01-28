@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212966840063048634}
   - component: {fileID: 61943592429438862}
   - component: {fileID: 114003222642901344}
-  - component: {fileID: 114155407463835978}
   - component: {fileID: 50837471642765882}
   m_Layer: 8
   m_Name: Switch
@@ -105,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672625173870486}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: -8.6, y: 6.1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4608222221210942}
@@ -119,7 +118,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1692965627458132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17, y: -0.3, z: 0}
+  m_LocalPosition: {x: 484.15277, y: 52.16425, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4093778901260808}
@@ -148,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1302578405394610}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.5, y: 18.5, z: 0}
+  m_LocalPosition: {x: -8.5, y: 3.8, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 4180326448763906}
@@ -161,8 +160,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680999074186294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 18, z: 1}
+  m_LocalPosition: {x: -6.3, y: 11.7, z: 0}
+  m_LocalScale: {x: 1, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 4180326448763906}
   m_RootOrder: 2
@@ -285,21 +284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 212676913904450492}
   col: {fileID: 61780122318123230}
---- !u!114 &114155407463835978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1302578405394610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86b633bb4b8c8864fbd00d77aa327d86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jointPrefab: {fileID: 1175001916788872, guid: 3d015b0c1f6a9e14ca5efce023066481,
-    type: 2}
-  one: {fileID: 50837471642765882}
-  two: {fileID: 50935304967708032}
 --- !u!114 &114675922767000232
 MonoBehaviour:
   m_ObjectHideFlags: 1
