@@ -5,6 +5,7 @@ using UnityEngine;
 public class Platform : PowerUser {
     public GameObject platform;
     public GameObject referencePoint;
+    public Rigidbody2D rb;
     bool switchPressed;
     Vector3 origin;
     float timer;
@@ -21,9 +22,11 @@ public class Platform : PowerUser {
         if (switchPressed) {
             if (referencePoint.transform.position.y == platform.transform.position.y) {
                 platform.transform.position += Vector3.right * Mathf.Sin(timer) * (referencePoint.transform.position.x - origin.x) * Time.deltaTime;
+                rb.MovePosition(platform.transform.position + Vector3.right * Mathf.Sin(timer) * (referencePoint.transform.position.x - origin.x) * Time.deltaTime);
                 timer += Time.deltaTime;
             } else if (referencePoint.transform.position.x == platform.transform.position.x) {
                 platform.transform.position += Vector3.up * Mathf.Sin(timer) * (referencePoint.transform.position.y - origin.y) * Time.deltaTime;
+                rb.MovePosition(platform.transform.position += Vector3.up * Mathf.Sin(timer) * (referencePoint.transform.position.y - origin.y) * Time.deltaTime);
                 timer += Time.deltaTime;
             }
         }
