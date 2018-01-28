@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightbulbTest : PowerUser {
+public class Door : PowerUser {
 
-    SpriteRenderer sr;
+    public SpriteRenderer sr;
+    public Collider2D col;
 
     // Use this for initialization
     protected override void Start() {
         base.Start();
-        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update() {
+
+    }
 
     public override void SetPower(bool isPowered) {
-        sr.color = isPowered ? Color.yellow : Color.black;
+        sr.enabled = !isPowered;
+        col.enabled = !isPowered;
     }
 }
