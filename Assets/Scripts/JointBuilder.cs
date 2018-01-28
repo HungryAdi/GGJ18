@@ -81,7 +81,7 @@ public class JointBuilder : MonoBehaviour {
                 }
 
                 SpriteRenderer sr = circs.AddComponent<SpriteRenderer>();
-                string s = (right ? "3" : "7");
+                string s = (right ? "2" : "6");
                 sr.sprite = Resources.Load<Sprite>("Art/Sprites/Plugs/plug" + s);
                 circs.transform.SetParent(go.transform);
                 sr.sortingOrder = 5;
