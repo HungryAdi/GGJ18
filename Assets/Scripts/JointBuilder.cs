@@ -7,13 +7,16 @@ using UnityEngine;
 public class JointBuilder : MonoBehaviour {
 
     public GameObject jointPrefab;
+    public GameObject particlesPrefab;
     public float angle = 60.0f;
-
+    
     Rigidbody2D rigid;
     PlayerController pc;
     LineRenderer lr;
     Rigidbody2D[] lrbs;
     Rigidbody2D[] rrbs;
+    ParticleSystem lps;
+    ParticleSystem rps;
     int count;
     // Use this for initialization
     void Start() {
@@ -27,7 +30,7 @@ public class JointBuilder : MonoBehaviour {
 
     }
 
-    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs) {
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i, 0, 0), Quaternion.identity, transform);
@@ -47,6 +50,9 @@ public class JointBuilder : MonoBehaviour {
                 CircleCollider2D coll;
                 coll = go.AddComponent<CircleCollider2D>();
                 coll.isTrigger = true;
+                GameObject particles = Instantiate(particlesPrefab, go.transform.position, Quaternion.identity);
+                ps = particles.GetComponent<ParticleSystem>();
+                particles.transform.SetParent(go.transform);
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
@@ -59,6 +65,7 @@ public class JointBuilder : MonoBehaviour {
         }
         hingy = null;
         colly = null;
+        ps = null;
         return null;
     }
     void RenderLine(int count) {
@@ -74,5 +81,12 @@ public class JointBuilder : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         RenderLine(count);
+        if (pc.wire.connectedToWall) {
+            lps.Play();
+            rps.Play();
+        } else {
+            lps.Stop();
+            rps.Stop();
+        }
     }
 }
