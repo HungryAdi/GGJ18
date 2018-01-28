@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  armSpeed: 20
+  armSpeed: 10
   leftRigid: {fileID: 0}
   leftHinge: {fileID: 0}
   leftCol: {fileID: 0}
