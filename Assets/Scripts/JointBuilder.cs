@@ -26,13 +26,13 @@ public class JointBuilder : MonoBehaviour {
         wire = GetComponent<Wire>();
         lr = GetComponent<LineRenderer>();
         count = 10;
-        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps);
-        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps);
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps, false);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps, true);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps) {
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps, bool right) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * .5f, 0, 0), Quaternion.identity, transform);
@@ -57,7 +57,10 @@ public class JointBuilder : MonoBehaviour {
                 go.layer = 8;
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
-                //go.AddComponent<Hinge>();
+                GameObject txt = Instantiate(new GameObject(), go.transform.position, Quaternion.identity);
+                TextMesh tm = txt.AddComponent<TextMesh>();
+                txt.transform.SetParent(go.transform);
+                tm.text = (right ? "R" : "L");
                 hj.enabled = false;
                 hingy = hj;
                 colly = coll;
