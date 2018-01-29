@@ -234,6 +234,8 @@ MonoBehaviour:
   angle: 60
   sourceLeft: {fileID: 0}
   sourceRight: {fileID: 0}
+  HandParticlePrefab: {fileID: 1219078693486100, guid: e0f708838ab0e924eb1e78b53bc210fc,
+    type: 2}
 --- !u!120 &120208322999576844
 LineRenderer:
   m_ObjectHideFlags: 1

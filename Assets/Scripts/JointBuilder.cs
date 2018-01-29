@@ -23,6 +23,10 @@ public class JointBuilder : MonoBehaviour {
 
     public AudioSource sourceLeft;
     public AudioSource sourceRight;
+    public GameObject HandParticlePrefab;
+
+    public ParticleSystem handLeft;
+    public ParticleSystem handRight;
 
     int count;
     // Use this for initialization
@@ -32,13 +36,13 @@ public class JointBuilder : MonoBehaviour {
         wire = GetComponent<Wire>();
         lr = GetComponent<LineRenderer>();
         count = 10;
-        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps, false);
-        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps, true);
+        pc.leftRigid = BuildJoints(count, out pc.leftHinge, out pc.leftCol, out lrbs, out lps, out handLeft, false);
+        pc.rightRigid = BuildJoints(count, out pc.rightHinge, out pc.rightCol, out rrbs, out rps, out handRight, true);
 
 
     }
 
-    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps, bool right) {
+    Rigidbody2D BuildJoints(int count, out HingeJoint2D hingy, out CircleCollider2D colly, out Rigidbody2D[] rbs, out ParticleSystem ps, out ParticleSystem hps, bool right) {
         rbs = new Rigidbody2D[count];
         for (int i = 0; i < count; ++i) {
             GameObject go = Instantiate(jointPrefab, transform.position + new Vector3(i * .5f, 0, 0), Quaternion.identity, transform);
@@ -63,6 +67,11 @@ public class JointBuilder : MonoBehaviour {
                 ps = particles.GetComponent<ParticleSystem>();
                 particles.transform.SetParent(go.transform);
                 go.layer = 8;
+
+                GameObject handParticles = Instantiate(HandParticlePrefab, go.transform.position, Quaternion.identity);
+                hps = handParticles.GetComponent<ParticleSystem>();
+                handParticles.transform.SetParent(go.transform);                
+
                 HingeJoint2D hj = go.AddComponent<HingeJoint2D>();
                 go.tag = "Player";
                 GameObject circs = Instantiate(new GameObject(), new Vector3(go.transform.position.x + .7f, go.transform.position.y, go.transform.position.z), Quaternion.identity);
@@ -99,6 +108,7 @@ public class JointBuilder : MonoBehaviour {
         hingy = null;
         colly = null;
         ps = null;
+        hps = null;
         return null;
     }
     void RenderLine(int count) {
@@ -135,6 +145,24 @@ public class JointBuilder : MonoBehaviour {
             }
         } else {
             rps.Stop();
+        }
+
+        float lTrig = GamePad.GetState(pc.index).Triggers.Left;
+        float rTrig = GamePad.GetState(pc.index).Triggers.Right;
+
+        if(lTrig > 0.5f) {
+            if (!handLeft.isPlaying && !lps.isPlaying) {
+                handLeft.Play();
+            }
+        } else {
+            handLeft.Stop();
+        }
+        if (rTrig > 0.5f) {
+            if (!handRight.isPlaying && !rps.isPlaying) {
+                handRight.Play();
+            }
+        } else {
+            handRight.Stop();
         }
 
     }
