@@ -119,6 +119,7 @@ public class camerastuff : MonoBehaviour
 
     public IEnumerator ZoomOutTime(float time)
     {
+        timer = 0;
         while(timer < time) {
             Vector3 cam = Camera.main.transform.position;
             cam.z = -camZoomOut;

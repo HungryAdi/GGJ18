@@ -7,11 +7,11 @@ public class SongPlayer : MonoBehaviour {
     public AudioSource music;
     public AudioSource generator;
 
-    public SongPlayer instance = null;
+    public static SongPlayer instance = null;
 
     // Use this for initialization
     void Start() {
-        if (instance != null) {
+        if (instance == null) {
             instance = this;
             DontDestroyOnLoad(gameObject);
         } else {

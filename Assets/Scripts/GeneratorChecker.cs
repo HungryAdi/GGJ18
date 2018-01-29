@@ -29,6 +29,7 @@ public class GeneratorChecker : MonoBehaviour {
                 }
             }
             if (allPowered) {
+                StartCoroutine(Camera.main.GetComponent<camerastuff>().ZoomOutTime(5));
                 lightup.litFam = true;
                 for(int i = 0; i < tips.Count; ++i) { 
                     tips[i].freeze = true;
